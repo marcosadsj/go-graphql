@@ -59,3 +59,19 @@ func (c *Category) FindAll() ([]Category, error) {
 
 	return categories, nil
 }
+
+func (c *Category) FindByID(id string) (category Category, err error) {
+
+	row := c.db.QueryRow("SELECT id, name, description FROM categories WHERE id = ?", id)
+
+	err = row.Scan(&category.ID, &category.Name, &category.Description)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return Category{}, nil // No category found
+		}
+		return Category{}, err // Other error
+	}
+
+	return category, nil
+}
