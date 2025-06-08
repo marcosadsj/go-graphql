@@ -1,0 +1,1 @@
+CREATE TABLE categories (id string PRIMARY KEY, name varchar(255) NOT NULL, description varchar(255));
